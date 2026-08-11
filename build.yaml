@@ -1,20 +1,27 @@
 include:
+  # TB2Z: identical config to main, just rebuilt today.
+  # Tests whether "rebuilding today" alone breaks anything (module drift check).
   - board: xiao_ble//zmk
     shield: cornix_dongle_adapter prospector_adapter
     snippet: studio-rpc-usb-uart nrf52840-nosd
-    artifact-name: cornix_dongle_prospector
+    artifact-name: TB2Z_dongle
 
-  - board: cornix_ph_left
-    artifact-name: cornix_left_for_dongle
-
-  - board: cornix_right
-    artifact-name: cornix_right
-
-  - board: cornix_right
-    shield: settings_reset
-    snippet: studio-rpc-usb-uart nrf52840-nosd
-    artifact-name: cornix_reset
-
+  # TB2A: only change = 3 peripherals.
   - board: xiao_ble//zmk
-    shield: settings_reset
-    artifact-name: reset_dongle
+    shield: cornix_dongle_adapter prospector_adapter
+    snippet: studio-rpc-usb-uart nrf52840-nosd
+    cmake-args: -DCONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS=3
+    artifact-name: TB2A_dongle
+
+  # TB2B: 3 peripherals + trackball input receiver.
+  - board: xiao_ble//zmk
+    shield: cornix_dongle_adapter prospector_adapter tb_receiver
+    snippet: studio-rpc-usb-uart nrf52840-nosd
+    cmake-args: -DCONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS=3 -DCONFIG_ZMK_INPUT_SPLIT=y
+    artifact-name: TB2B_dongle
+
+  # Trackball peripheral (XIAO + PAW3222)
+  - board: xiao_ble//zmk
+    shield: trackball_peripheral
+    snippet: nrf52840-nosd
+    artifact-name: TB2_trackball

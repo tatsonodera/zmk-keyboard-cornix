@@ -1,0 +1,18 @@
+// Receiving end of the trackball's split input, for the dongle (central).
+// Add this shield ON TOP of cornix_dongle_adapter to route trackball motion into HID.
+/ {
+    split_inputs {
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        trackball_split: trackball_split@0 {
+            compatible = "zmk,input-split";
+            reg = <0>;
+        };
+    };
+
+    trackball_listener: trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball_split>;
+    };
+};
