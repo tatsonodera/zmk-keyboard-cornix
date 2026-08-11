@@ -4,6 +4,11 @@ include:
     snippet: studio-rpc-usb-uart nrf52840-nosd
     artifact-name: cornix_dongle_prospector
 
+  - board: xiao_ble//zmk
+    shield: trackball_peripheral
+    snippet: nrf52840-nosd
+    artifact-name: trackball_peripheral
+
   - board: cornix_ph_left
     artifact-name: cornix_left_for_dongle
 

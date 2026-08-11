@@ -12,6 +12,8 @@ manifest:
       url-base: https://github.com/janpfischer
     - name: carrefinho
       url-base: https://github.com/carrefinho
+    - name: sekigon-gonnoc
+      url-base: https://github.com/sekigon-gonnoc
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -38,6 +40,10 @@ manifest:
     - name: prospector-zmk-module
       remote: carrefinho
       revision: feat/new-status-screens
+      clone-depth: 1
+    - name: zmk-driver-paw3222
+      remote: sekigon-gonnoc
+      revision: main
       clone-depth: 1
   self:
     path: config
