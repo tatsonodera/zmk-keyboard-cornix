@@ -2,10 +2,10 @@ include:
   - board: xiao_ble//zmk
     shield: cornix_dongle_adapter prospector_adapter
     snippet: studio-rpc-usb-uart nrf52840-nosd
-    artifact-name: CLEARBONDS_dongle
+    artifact-name: FULLRESET_dongle
 
   - board: cornix_ph_left
-    artifact-name: CLEARBONDS_left
+    artifact-name: FULLRESET_left
 
   - board: cornix_right
-    artifact-name: CLEARBONDS_right
+    artifact-name: FULLRESET_right
