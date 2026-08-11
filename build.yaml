@@ -1,35 +1,42 @@
 include:
-  # TB2Z: identical config to main, just rebuilt today.
-  # Tests whether "rebuilding today" alone breaks anything (module drift check).
-  - board: xiao_ble//zmk
-    shield: cornix_dongle_adapter prospector_adapter
-    snippet: studio-rpc-usb-uart nrf52840-nosd
-    artifact-name: TB2Z_dongle
-
-  # TB2A: only change = 3 peripherals.
-  - board: xiao_ble//zmk
-    shield: cornix_dongle_adapter prospector_adapter
-    snippet: studio-rpc-usb-uart nrf52840-nosd
-    cmake-args: -DCONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS=3
-    artifact-name: TB2A_dongle
-
-  # TB2B: 3 peripherals + trackball input receiver.
+  # ============ Normal firmware (4-device working setup) ============
+  # Dongle: central, 3 peripherals (L/R/trackball) + trackball input receiver
   - board: xiao_ble//zmk
     shield: cornix_dongle_adapter prospector_adapter tb_receiver
     snippet: studio-rpc-usb-uart nrf52840-nosd
     cmake-args: -DCONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS=3 -DCONFIG_ZMK_INPUT_SPLIT=y
-    artifact-name: TB2B_dongle
+    artifact-name: cornix_dongle_tb
 
-  # Trackball peripheral (XIAO + PAW3222)
+  - board: cornix_ph_left
+    artifact-name: cornix_left_for_dongle
+
+  - board: cornix_right
+    artifact-name: cornix_right
+
   - board: xiao_ble//zmk
     shield: trackball_peripheral
     snippet: nrf52840-nosd
-    artifact-name: TB2_trackball
+    artifact-name: cornix_trackball
 
-  # Trackball FULLRESET: same fw but wipes ALL settings/bonds on boot.
-  # Flash, power once (10s), then flash TB2_trackball.
+  # ============ Emergency FULLRESET builds ============
+  # Wipes ALL settings + bonds on every boot (correct flash layout guaranteed).
+  # Usage: flash -> power on 10s -> flash normal firmware back.
+  - board: xiao_ble//zmk
+    shield: cornix_dongle_adapter prospector_adapter tb_receiver
+    snippet: studio-rpc-usb-uart nrf52840-nosd
+    cmake-args: -DCONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS=3 -DCONFIG_ZMK_INPUT_SPLIT=y -DCONFIG_ZMK_SETTINGS_RESET_ON_START=y -DCONFIG_ZMK_BLE_CLEAR_BONDS_ON_START=y
+    artifact-name: FULLRESET_dongle
+
+  - board: cornix_ph_left
+    cmake-args: -DCONFIG_ZMK_SETTINGS_RESET_ON_START=y -DCONFIG_ZMK_BLE_CLEAR_BONDS_ON_START=y
+    artifact-name: FULLRESET_left
+
+  - board: cornix_right
+    cmake-args: -DCONFIG_ZMK_SETTINGS_RESET_ON_START=y -DCONFIG_ZMK_BLE_CLEAR_BONDS_ON_START=y
+    artifact-name: FULLRESET_right
+
   - board: xiao_ble//zmk
     shield: trackball_peripheral
     snippet: nrf52840-nosd
     cmake-args: -DCONFIG_ZMK_SETTINGS_RESET_ON_START=y -DCONFIG_ZMK_BLE_CLEAR_BONDS_ON_START=y
-    artifact-name: TB2_trackball_FULLRESET
+    artifact-name: FULLRESET_trackball
