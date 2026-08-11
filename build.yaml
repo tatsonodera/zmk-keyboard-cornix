@@ -25,3 +25,11 @@ include:
     shield: trackball_peripheral
     snippet: nrf52840-nosd
     artifact-name: TB2_trackball
+
+  # Trackball FULLRESET: same fw but wipes ALL settings/bonds on boot.
+  # Flash, power once (10s), then flash TB2_trackball.
+  - board: xiao_ble//zmk
+    shield: trackball_peripheral
+    snippet: nrf52840-nosd
+    cmake-args: -DCONFIG_ZMK_SETTINGS_RESET_ON_START=y -DCONFIG_ZMK_BLE_CLEAR_BONDS_ON_START=y
+    artifact-name: TB2_trackball_FULLRESET
