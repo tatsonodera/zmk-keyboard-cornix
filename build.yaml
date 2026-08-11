@@ -2,19 +2,10 @@ include:
   - board: xiao_ble//zmk
     shield: cornix_dongle_adapter prospector_adapter
     snippet: studio-rpc-usb-uart nrf52840-nosd
-    artifact-name: cornix_dongle_prospector
+    artifact-name: CLEARBONDS_dongle
 
   - board: cornix_ph_left
-    artifact-name: cornix_left_for_dongle
+    artifact-name: CLEARBONDS_left
 
   - board: cornix_right
-    artifact-name: cornix_right
-
-  - board: cornix_right
-    shield: settings_reset
-    snippet: studio-rpc-usb-uart nrf52840-nosd
-    artifact-name: cornix_reset
-
-  - board: xiao_ble//zmk
-    shield: settings_reset
-    artifact-name: reset_dongle
+    artifact-name: CLEARBONDS_right
