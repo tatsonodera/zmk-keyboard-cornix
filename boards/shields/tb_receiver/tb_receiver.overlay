@@ -1,6 +1,7 @@
 // Receiving end of the trackball's split input, for the dongle (central).
 // Add this shield ON TOP of cornix_dongle_adapter to route trackball motion into HID.
 
+#include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
 / {
