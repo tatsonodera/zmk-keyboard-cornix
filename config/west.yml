@@ -68,11 +68,9 @@ manifest:
       remote: cormoran
       revision: main
       import: true
-    # マクロを実行時に編集する
-    # ※ 既定値のままだと RAM が 20KB 溢れる。conf 側で上限を切り詰めている
-    - name: zmk-feature-runtime-macro
-      remote: cormoran
-      revision: main
-      import: true
+    # zmk-feature-runtime-macro は RAM 不足で載せられない。
+    # 溢れているのは noinit（主にスレッドスタック）で、モジュール側の
+    # バッファ上限を削っても効かなかった。Prospector の LCD(LVGL) が
+    # 大量に使っているため、20KB以上の空きは作れない。
   self:
     path: config
