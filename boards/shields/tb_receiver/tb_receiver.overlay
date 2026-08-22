@@ -1,5 +1,8 @@
 // Receiving end of the trackball's split input, for the dongle (central).
 // Add this shield ON TOP of cornix_dongle_adapter to route trackball motion into HID.
+
+#include <dt-bindings/zmk/input_transform.h>
+
 / {
     split_inputs {
         #address-cells = <1>;
@@ -14,5 +17,9 @@
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball_split>;
+        // センサーの取り付け向きの都合で、XとYの両方を反転させている。
+        // 上下だけ直したい場合は INPUT_TRANSFORM_Y_INVERT のみ、
+        // 縦横が入れ替わっている場合は INPUT_TRANSFORM_XY_SWAP を足す。
+        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
     };
 };
