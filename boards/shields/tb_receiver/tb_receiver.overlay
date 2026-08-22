@@ -2,6 +2,7 @@
 // Add this shield ON TOP of cornix_dongle_adapter to route trackball motion into HID.
 
 #include <input/processors.dtsi>
+#include <input/processors/runtime-input-processor.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
 / {
@@ -18,9 +19,14 @@
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball_split>;
-        // センサーの取り付け向きの都合で、XとYの両方を反転させている。
-        // 上下だけ直したい場合は INPUT_TRANSFORM_Y_INVERT のみ、
-        // 縦横が入れ替わっている場合は INPUT_TRANSFORM_XY_SWAP を足す。
-        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
+
+        // 1段目: センサーの取り付け向きの補正（静的・既に動作確認済み）
+        //   上下だけ直したい場合は INPUT_TRANSFORM_Y_INVERT のみ、
+        //   縦横が入れ替わっている場合は INPUT_TRANSFORM_XY_SWAP を足す。
+        // 2段目: DYA Studio から実行時に調整できるプロセッサ
+        //   感度・回転・軸スナップ・マウスレイヤーをWebから変更できる。
+        input-processors =
+            <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
+            <&mouse_runtime_input_processor>;
     };
 };
