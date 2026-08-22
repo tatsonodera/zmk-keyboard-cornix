@@ -77,6 +77,23 @@
             bindings = <&kp DEL>;
             key-positions = <43 44>; // SPACE(左親指) + BSPC(右親指)
         };
+
+        // 左手側にもクリックを追加。右手側の鏡写しにしてある
+        //   J+K → F+D ／ H+K → G+D （K↔D, J↔F, H↔G の対応）
+        combo_btn1_left {
+            bindings = <&mkp MB1>;   // 左クリック（J+Kと同じ）
+            key-positions = <15 16>; // D + F
+        };
+
+        combo_btn2_left {
+            bindings = <&mkp MB2>;   // 右クリック（H+Kと同じ）
+            key-positions = <15 17>; // D + G
+        };
+
+        combo_btn4_left {
+            bindings = <&mkp MB4>;      // 中クリック（J+K+Lと同じ）
+            key-positions = <14 15 16>; // S + D + F
+        };
     };
 
     keymap {
@@ -85,7 +102,7 @@
         layer_base {
             display-name = "Base";
             bindings = <
-&kp GRAVE     &kp Q         &kp W         &kp E         &kp R         &kp T                                &kp Y         &kp U         &kp I         &kp O         &kp P         &kp DEL
+&kp GRAVE     &kp Q         &kp W         &kp E         &kp R         &kp T                                &kp Y         &kp U         &kp I         &kp O         &kp P         &lt 6 DEL
 &kp TAB       &kp A         &kp S         &kp D         &kp F         &kp G                                &kp H         &kp J         &kp K         &kp L         &kp SEMI      &kp ENTER
 &kp LSHFT     &kp Z         &kp X         &kp C         &kp V         &kp B         &alt_tab  &none         &kp N         &kp M         &kp COMMA     &kp DOT       &kp UP        &kp FSLH
 &kp LCTRL     &kp LGUI      &kp LALT      &mo 1         &mo 4         &kp SPACE                            &kp BSPC      &mo 3         &mo 2         &kp LEFT      &kp DOWN      &kp RIGHT
@@ -144,6 +161,20 @@
 &kp TAB       &kp A         &kp S         &kp D         &kp F         &kp LS(N8)                           &kp N4        &kp N5        &kp N6        &kp KP_PLUS   &kp KP_DIVIDE &kp ENTER
 &kp LSHFT     &kp Z         &kp X         &kp C         &kp V         &kp LS(N9)    &kp C_MUTE  &none       &kp N1        &kp N2        &kp N3        &kp N0        &kp UP        &none
 &kp LCTRL     &kp LALT      &none         &none         &none         &tog 5                               &kp BSPC      &none         &kp ENTER     &kp LEFT      &kp DOWN      &kp RIGHT
+            >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &vscroll_encoder>;
+        };
+
+        // DELキー長押しで乗るスクロール用レイヤー。
+        // キーはすべて透過なので、押している間の打鍵は下のレイヤーがそのまま効く。
+        // トラックボールの動きだけが tb_receiver.overlay 側でスクロールに変わる。
+        layer_scroll {
+            display-name = "Scroll";
+            bindings = <
+&trans        &trans        &trans        &trans        &trans        &trans                               &trans        &trans        &trans        &trans        &trans        &trans
+&trans        &trans        &trans        &trans        &trans        &trans                               &trans        &trans        &trans        &trans        &trans        &trans
+&trans        &trans        &trans        &trans        &trans        &trans        &trans      &trans      &trans        &trans        &trans        &trans        &trans        &trans
+&trans        &trans        &trans        &trans        &trans        &trans                               &trans        &trans        &trans        &trans        &trans        &trans
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &vscroll_encoder>;
         };

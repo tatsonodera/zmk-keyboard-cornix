@@ -28,5 +28,16 @@
         input-processors =
             <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
             <&mouse_runtime_input_processor>;
+
+        // レイヤー6（DELキー長押しで乗る Scroll レイヤー）にいる間だけ、
+        // ボールの動きをスクロールに変換する。
+        // scroll_runtime_input_processor を挟んであるので、
+        // スクロール速度や軸スナップは DYA Studio から個別に調整できる。
+        scroller {
+            layers = <6>;
+            input-processors =
+                <&zip_xy_to_scroll_mapper>,
+                <&scroll_runtime_input_processor>;
+        };
     };
 };
