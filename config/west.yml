@@ -63,12 +63,13 @@ manifest:
     - name: zmk-module-settings-rpc
       remote: cormoran
       revision: main
-    # コンボを実行時に編集する（import: true が必要）
+    # コンボを実行時に編集する
     - name: zmk-feature-runtime-combo
       remote: cormoran
       revision: main
       import: true
-    # マクロを実行時に編集する（import: true が必要）
+    # マクロを実行時に編集する
+    # ※ 既定値のままだと RAM が 20KB 溢れる。conf 側で上限を切り詰めている
     - name: zmk-feature-runtime-macro
       remote: cormoran
       revision: main
