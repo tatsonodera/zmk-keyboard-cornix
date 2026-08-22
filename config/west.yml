@@ -63,14 +63,7 @@ manifest:
     - name: zmk-module-settings-rpc
       remote: cormoran
       revision: main
-    # コンボを実行時に編集する
-    - name: zmk-feature-runtime-combo
-      remote: cormoran
-      revision: main
-      import: true
-    # zmk-feature-runtime-macro は RAM 不足で載せられない。
-    # 溢れているのは noinit（主にスレッドスタック）で、モジュール側の
-    # バッファ上限を削っても効かなかった。Prospector の LCD(LVGL) が
-    # 大量に使っているため、20KB以上の空きは作れない。
+    # zmk-feature-runtime-combo と zmk-feature-runtime-macro は RAM 不足で
+    # 載せられなかった。詳細は cornix_dongle_adapter.conf のコメント参照。
   self:
     path: config
