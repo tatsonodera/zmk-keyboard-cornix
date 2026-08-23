@@ -98,28 +98,9 @@
             require-prior-idle-ms = <150>;
         };
 
-        // 左手側にもクリックを追加。右手側の鏡写しにしてある
-        //   J+K → F+D ／ H+K → G+D （K↔D, J↔F, H↔G の対応）
-        combo_btn1_left {
-            bindings = <&mkp MB1>;   // 左クリック（J+Kと同じ）
-            key-positions = <15 16>; // D + F
-            timeout-ms = <40>;
-            require-prior-idle-ms = <150>;
-        };
-
-        combo_btn2_left {
-            bindings = <&mkp MB2>;   // 右クリック（H+Kと同じ）
-            key-positions = <15 17>; // D + G
-            timeout-ms = <40>;
-            require-prior-idle-ms = <150>;
-        };
-
-        combo_btn4_left {
-            bindings = <&mkp MB4>;      // 中クリック（J+K+Lと同じ）
-            key-positions = <14 15 16>; // S + D + F
-            timeout-ms = <40>;
-            require-prior-idle-ms = <150>;
-        };
+        // 左手側のクリックコンボ（F+D / G+D / S+D+F）は、打鍵の遅延を疑って削除した。
+        // ホームポジションのS/D/F/Gがコンボ参加キーになるのを避けるため。
+        // 遅延の原因が別だと判明したら復活させてよい。
     };
 
     keymap {
