@@ -58,24 +58,44 @@
     combos {
         compatible = "zmk,combos";
 
+        // ---- 打鍵の遅延対策 ----
+        // コンボは「もう1つのキーが来るか」をタイムアウトまで待ってから
+        // 単独キーを出力するため、参加キーはその分だけ遅れて出る。
+        // ホームポジションのS/D/F/G/H/J/K/Lがほぼ全部参加しているので、
+        // 速い入力で体感できる遅延になっていた。
+        //
+        //   timeout-ms 50 -> 40           : 待ち時間そのものを短縮
+        //   require-prior-idle-ms = 150   : 直前に打鍵があればコンボを無効化
+        //
+        // クリックは文字入力の最中に使うものではないので、
+        // 「少し止まってから押す」という条件でも実用上困らない。
+
         combo_btn1 {
             bindings = <&mkp MB1>;
             key-positions = <19 20>; // J + K
+            timeout-ms = <40>;
+            require-prior-idle-ms = <150>;
         };
 
         combo_btn2 {
             bindings = <&mkp MB2>;
             key-positions = <18 20>; // H + K
+            timeout-ms = <40>;
+            require-prior-idle-ms = <150>;
         };
 
         combo_btn4 {
             bindings = <&mkp MB4>;
             key-positions = <19 20 21>; // J + K + L
+            timeout-ms = <40>;
+            require-prior-idle-ms = <150>;
         };
 
         combo_delete {
             bindings = <&kp DEL>;
             key-positions = <43 44>; // SPACE(左親指) + BSPC(右親指)
+            timeout-ms = <40>;
+            require-prior-idle-ms = <150>;
         };
 
         // 左手側にもクリックを追加。右手側の鏡写しにしてある
@@ -83,16 +103,22 @@
         combo_btn1_left {
             bindings = <&mkp MB1>;   // 左クリック（J+Kと同じ）
             key-positions = <15 16>; // D + F
+            timeout-ms = <40>;
+            require-prior-idle-ms = <150>;
         };
 
         combo_btn2_left {
             bindings = <&mkp MB2>;   // 右クリック（H+Kと同じ）
             key-positions = <15 17>; // D + G
+            timeout-ms = <40>;
+            require-prior-idle-ms = <150>;
         };
 
         combo_btn4_left {
             bindings = <&mkp MB4>;      // 中クリック（J+K+Lと同じ）
             key-positions = <14 15 16>; // S + D + F
+            timeout-ms = <40>;
+            require-prior-idle-ms = <150>;
         };
     };
 
